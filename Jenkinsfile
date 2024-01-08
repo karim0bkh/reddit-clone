@@ -77,6 +77,13 @@ pipeline {
                  }
              }
          }
+    stage("Trigger CD Pipeline") {
+             steps {
+                 script {
+                     sh "curl -v -k --user karim:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'ec2-54-158-247-10.compute-1.amazonaws.com:8080/job/Reddit-Clone-CD/buildWithParameters?token=karim-cd-token'"
+                 }
+             }
+         }
      
 	  }
     post {
