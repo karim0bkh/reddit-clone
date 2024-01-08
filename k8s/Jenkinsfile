@@ -34,30 +34,30 @@ pipeline {
                 }
             }
 
-stage("Push the changed deployment file to GitHub") {
-    steps {
-        script {
-            // Navigate to the 'k8s' folder
-            dir('reddit-clone/k8s') {
-                // Add or modify files in the 'k8s' folder as needed
-                sh """
-                    git config --global user.name "karim0bkh"
-                    git config --global user.email "karim.bkh19@gmail.com"
-                    git add ../../k8s/deployment.yaml
-                    git commit -m "Updated Deployment Manifest"
-                """
+            stage("Push the changed deployment file to GitHub") {
+                steps {
+                    script {
+                        // Navigate to the 'k8s' folder
+                        dir('reddit-clone/k8s') {
+                            // Add or modify files in the 'k8s' folder as needed
+                            sh """
+                                git config --global user.name "karim0bkh"
+                                git config --global user.email "karim.bkh19@gmail.com"
+                                git add ../../k8s/deployment.yaml
+                                git commit -m "Updated Deployment Manifest"
+                            """
 
-                // Get the current branch name
-                def currentBranch = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                            // Get the current branch name
+                            def currentBranch = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
 
-                // Push changes to GitHub
-                withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                    sh "git push origin ${currentBranch}:${currentBranch}"
+                            // Push changes to GitHub
+                            withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+                                sh "git push origin ${currentBranch}"
+                            }
+                        }
+                    }
                 }
             }
-        }
-    }
-}
 
 
 
