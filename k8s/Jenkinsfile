@@ -42,7 +42,7 @@ pipeline {
             sh """
                 git config --global user.name "karim0bkh"
                 git config --global user.email "karim.bkh19@gmail.com"
-                git add /k8s/deployment.yaml
+                git add ./deployment.yaml
                 git commit -m "Updated Deployment Manifest"
             """
             
