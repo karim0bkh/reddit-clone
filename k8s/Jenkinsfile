@@ -53,7 +53,7 @@ pipeline {
 
                             // Push changes to GitHub
                             withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                                sh "git push https://github.com/karim0bkh/reddit-clone main"
+                                sh "git push d3cfb1fc81584257d5bb1d37295a9aa571cf6f3b refs/remotes/origin/main"
                             }
                         }
                     }
