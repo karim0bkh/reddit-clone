@@ -52,7 +52,7 @@ stage("Push the changed deployment file to GitHub") {
 
                 // Push changes to GitHub
                 withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                    sh "git push origin ${currentBranch}"
+                    sh "git push origin ${currentBranch}:${currentBranch}"
                 }
             }
         }
