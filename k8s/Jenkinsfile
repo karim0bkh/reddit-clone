@@ -34,28 +34,26 @@ pipeline {
                 }
             }
 
-         stage("Push the changed deployment file to GitHub") {
-            steps {
-                // Clone the repository
-                sh "git clone https://github.com/karim0bkh/reddit-clone.git"
-                
-                // Navigate to the 'k8s' folder
-                dir('reddit-clone/k8s') {
-                    // Add or modify files in the 'k8s' folder as needed
-                    sh """
-                        git config --global user.name "karim0bkh"
-                        git config --global user.email "karim.bkh19@gmail.com"
-                        git add deployment.yaml
-                        git commit -m "Updated Deployment Manifest"
-                    """
-                    
-                    // Push changes to GitHub
-                    withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                        sh "git push origin main"
-                    }
-                }
+       stage("Push the changed deployment file to GitHub") {
+    steps {
+        // Navigate to the 'k8s' folder
+        dir('reddit-clone/k8s') {
+            // Add or modify files in the 'k8s' folder as needed
+            sh """
+                git config --global user.name "karim0bkh"
+                git config --global user.email "karim.bkh19@gmail.com"
+                git add deployment.yaml
+                git commit -m "Updated Deployment Manifest"
+            """
+            
+            // Push changes to GitHub
+            withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+                sh "git push origin main"
             }
         }
+    }
+}
+
 
     }
 }
