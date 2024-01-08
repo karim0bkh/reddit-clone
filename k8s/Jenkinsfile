@@ -52,7 +52,7 @@ pipeline {
 
                             // Push changes to GitHub
                             withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                                sh "git push origin ${currentBranch}"
+                                sh "git push https://github.com/karim0bkh/reddit-clone main"
                             }
                         }
                     }
